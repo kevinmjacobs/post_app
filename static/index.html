@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <title>Urban Airship App</title>
+</head>
+<body>
+  <form id="submit_app" method="post">
+    <div>
+      <label>Likes</label>
+      <input name="like" id="like">
+    </div>
+    <div>
+      <label>Name</label>
+      <input name="name" id="name">
+    </div>
+    <div>
+      <label>Positions</label>
+      <input name="positions" id="positions">
+    </div>
+    <div>
+      <button>Post</button>
+    </div>
+  </form>
+</body>
+<script type='text/javascript'>
+  $("#submit_app").submit((e) => {
+    e.preventDefault();
+    const $form = $(this);
+    $.ajax({
+      type: "POST",
+      url: "https://ua-web-hiring.appspot.com/api/candidates", 
+      data: JSON.stringify({
+        like: $('#like').val(),
+        name: $('#name').val(),
+        positions: $('#positions').val()
+      }),
+      headers: {
+        "Access-Control-Allow-Origin": 'http://localhost:3000',
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Content-Type": "application/json"
+      }
+    }).done((res) => {
+      console.log(res);
+    });
+  });
+</script>
+</html>
